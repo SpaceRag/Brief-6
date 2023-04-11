@@ -1,6 +1,7 @@
 
 # **Brief 6** - *NetfluxLike*
 
+--- 
 
 ## Contexte du projet
 
@@ -21,6 +22,7 @@ Pour la réalisation du projet ==vous utiliserez l’API de The Movie DB==, les 
 
 Votre responsable technique vous laisse libre dans votre organisation et reste disponible pour vous aider. il vous conseille aussi de diminuer l'utilisation de chatGPT pour parfaire votre montée en compétences JS / TS avant d’intégrer le pôle backend de l’agence pour quelques semaines.
 
+---
 ## ​Livrables
 
 - Maquettes du projet
