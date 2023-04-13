@@ -1,0 +1,89 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: rgb(56, 56, 56);
+    margin-bottom: 1rem;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    & h1 {
+        color: rgb(233, 9, 26);
+        margin: 20px;
+    }
+
+    & input {
+        height: 20px;
+        margin: 20px;
+        border-style: none;
+        border-radius: 40px;
+    }
+}
+
+footer {
+    bottom: 0;
+    
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: grey;
+    border-radius: 20px;
+    padding: 4rem;
+
+}
+
+h2 {
+    color: white;
+    margin: 2rem;
+}
+
+.popularCarouselCard {
+    display: flex;
+    flex-flow: row;
+    // gap: 3;
+    // background-color: rgba(128, 128, 128, 0.068);
+    border-radius: 20px;
+    padding: 1rem;
+    margin: 1rem;
+    list-style: none;
+
+    // .card {
+    //     padding: 3rem;
+    //     background-color: beige;
+    //     border-radius: 20px;
+        
+    //     & :hover {
+    //         animation: grow ease-in-out infinite;
+    //     }
+        
+    // }
+}
+
+.docuCarouselCard {
+    display: flex;
+    flex-flow: row;
+    // gap: 3;
+    // background-color: grey;
+    border-radius: 20px;
+    padding: 1rem;
+    margin: 1rem;
+    list-style: none;
+
+    // .card {
+    //     padding: 3rem;
+    //     background-color: beige;
+    //     border-radius: 20px;
+        
+        
+    // }
+}

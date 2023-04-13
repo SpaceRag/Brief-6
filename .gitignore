@@ -1,2 +1,5 @@
 .cache 
-.dist
+dist
+node_modules
+.parcel-cache
+key.ts

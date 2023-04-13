@@ -1,0 +1,1 @@
+export default 'Votre key TMDB ici'

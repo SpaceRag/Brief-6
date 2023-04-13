@@ -1,6 +1,10 @@
 
 # **Brief 6** - *NetfluxLike*
 
+``` shell 
+cp key.example.ts key.ts # Ajoutez votre votre clé TMDB
+
+```
 --- 
 
 ## Contexte du projet
