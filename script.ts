@@ -1,11 +1,51 @@
 import key from "./key"
 
+
 const baseUrl: string = "https://api.themoviedb.org/3"
 const apiKey: string = 'api_key=' + key + '&language=fr-FR'
 
+
+////////////////////////////// PAGE ACCEUIL - CATEGOMOVIES ////////////////////////////////////
+
+///////////////////////////////// SEARCH BAR ////////////////////////////////////////////////
+
+
+const searchUrl = baseUrl + '/search/movie'
+
+const searchBar: Element | null = document.querySelector('.searchBar')
+
+searchBar.addEventListener('keypress', async (event) => {
+  if (event.key === 'Enter') {
+    const searchTerm = event.target.value
+    const url = `${searchUrl}?api_key=${apiKey}&query=${searchTerm}`
+    const response = await fetch(url)
+    const data = await response.json()
+    console.log(data.results)
+  }
+});
+
+///////////////////////// HERO VIDEOS //////////////////////////////////////////////////////
+
+// async function displayVideoMovie() {
+//     try {
+//         const response = await fetch(baseUrl + '/movie/videos' + apiKey)
+//         const data = await response.json()
+                                                 ///////////// REPRENDRE ICI  /////////
+//         const heroVideo = data.results
+
+//         // Selectionne l'élément ou afficher les video (HeroBanner)
+//         const heroBanner = document.querySelector('.hero') as HTMLElement
+
+
+        
+//     }
+// }
+
+//////////////////// POPULAR MOVIE /////////////////////////////////////////////
+
 async function getMoviePopular() {
     try {
-        const response = await fetch (baseUrl + '/movie/popular?' + apiKey)
+        const response = await fetch(baseUrl + '/movie/popular?' + apiKey)
         const data = await response.json()
 
         const popularMovies = data.results
@@ -23,6 +63,8 @@ async function getMoviePopular() {
             image.src = imageUrl
             // const title = document.createElement('h2')
             // title.textContent = movie.title
+
+            // Ajouter les image a la liste
             listItem.appendChild(image)
             // listItem.appendChild(title);
 
@@ -38,27 +80,33 @@ async function getMoviePopular() {
 }
 getMoviePopular()
 
-const genreID = "99"
+////////////////////////////////////// DOCUMENTARY MOVIE ////////////////////////////////////
+
+
+// Filtrer par genre 
 const filterGenre = "&with_genres="
+// ID du genre "documentaire"
+const genreID = "99"
+// Filter les contenu adulte
 const filterAdulte = '&include_adult=false'
 
-async function getMovieDocu () {
+async function getMovieDocu() {
     try {
-        const response = await fetch (baseUrl + '/discover/movie?' + apiKey + filterGenre + genreID + filterAdulte)
+        const response = await fetch(baseUrl + '/discover/movie?' + apiKey + filterGenre + genreID + filterAdulte)
         const data = await response.json()
 
         const movieDocuList = data.results
-        console.log(movieDocuList);
-        
+        // console.log(movieDocuList);
 
+        // Sélectionner l'élément de la page où afficher les images des films
         const docuList: Element | null = document.querySelector('.docuCarouselCard') as HTMLElement
-
-        movieDocuList.forEach(movie => { 
+        // Accéder à la liste des films populaires dans la réponse JSON
+        movieDocuList.forEach(movie => {
             const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
             const img = document.createElement('img')
             const listItem = document.createElement('li')
             img.src = imageUrl
-
+             // Ajouter l'élément <li> à la liste HTML
             listItem.appendChild(img)
             docuList.appendChild(listItem)
         })
@@ -67,6 +115,7 @@ async function getMovieDocu () {
         console.log(error);
 
     }
-    
+
 }
-getMovieDocu ()
+getMovieDocu()
+
