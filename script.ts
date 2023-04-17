@@ -17,31 +17,15 @@ const searchBar: Element | null = document.querySelector('.searchBar')
 searchBar.addEventListener('keypress', async (event) => {
   if (window.key === 'Enter') {
     const searchTerm = event.target.value
-    const url = `${searchUrl}?api_key=${apiKey}&query=${searchTerm}`
+    const url = searchUrl + '?api_key=' + apiKey + '&query=' + searchTerm
     const response = await fetch(url)
     const data = await response.json()
     console.log(data.results)
   }
 });
 
-///////////////////////// HERO VIDEOS //////////////////////////////////////////////////////
-// // Ajouter l'élément video 
-// const video = document.createElement('video')
+///////////////////////// HERO VIDEOS ///////////////////////////////////////////////////
 
-
-// // Utiliser la source vidéo depuis tmdb
-// video.src =
-//   'https://api.themoviedb.org/3/movie/550/videos?api_key=b5f0a52f1e2ddb2e4bef41ea5c9f2146&language=fr-FR'
-
-// video.controls = false
-// video.muted = false
-// video.height = 240 
-// video.width = 320
-
-// const box: HTMLElement | null = document.getElementById('.hero')
-
-// // Ajouter l'élément html a la div
-// box.appendChild(video);
 async function getMovieVideo() {
     try {
         const response = await fetch(baseUrl + '/movie/502356/videos?' + apiKey + 'language=fr-FR')
@@ -55,10 +39,7 @@ async function getMovieVideo() {
             const video = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${results.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
             heroBanner.innerHTML = video
 
-
         });
-
-
 
     } catch (error) {
     console.log(error)

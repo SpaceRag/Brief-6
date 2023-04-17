@@ -4,6 +4,10 @@ body {
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 20px;
@@ -46,12 +50,20 @@ body {
         border-style: none;
         border-radius: 40px;
         margin-right: 20%;
+        transition : transform 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.1)
+        }
 
     }
 }
 
 footer {
+    display: flex;
+    justify-content: center;
     bottom: 0;
+    font-size: 0.5rem;
+    margin: 20px;
 
 }
 
@@ -61,7 +73,6 @@ footer {
     align-items: center;
     background-color: rgba(128, 128, 128, 0.178);
     border-radius: 20px;
-    // padding: rem;
 
 }
 
@@ -73,40 +84,37 @@ h2 {
 .popularCarouselCard {
     display: flex;
     flex-flow: row;
-    // gap: 3;
-    // background-color: rgba(128, 128, 128, 0.068);
+    gap: 10px;
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem;
     list-style: none;
 
-    // .card {
-    //     padding: 3rem;
-    //     background-color: beige;
-    //     border-radius: 20px;
-
-    //     & :hover {
-    //         animation: grow ease-in-out infinite;
-    //     }
-
-    // }
-}
+    & img {
+        border-radius: 20px;
+        transition : transform 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.1)
+        }
+    }
+}     
+      
 
 .docuCarouselCard {
     display: flex;
     flex-flow: row;
-    // gap: 3;
-    // background-color: grey;
+    gap: 10px;
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem;
     list-style: none;
 
-    // .card {
-    //     padding: 3rem;
-    //     background-color: beige;
-    //     border-radius: 20px;
+    & img {
+        border-radius: 20px;
+        transition : transform 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.1)
+        }
+    }
 
-
-    // }
 }
