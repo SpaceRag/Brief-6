@@ -15,7 +15,7 @@ const searchUrl = baseUrl + '/search/movie'
 const searchBar: Element | null = document.querySelector('.searchBar')
 
 searchBar.addEventListener('keypress', async (event) => {
-  if (event.key === 'Enter') {
+  if (window.key === 'Enter') {
     const searchTerm = event.target.value
     const url = `${searchUrl}?api_key=${apiKey}&query=${searchTerm}`
     const response = await fetch(url)
@@ -25,22 +25,47 @@ searchBar.addEventListener('keypress', async (event) => {
 });
 
 ///////////////////////// HERO VIDEOS //////////////////////////////////////////////////////
-
-// async function displayVideoMovie() {
-//     try {
-//         const response = await fetch(baseUrl + '/movie/videos' + apiKey)
-//         const data = await response.json()
-                                                 ///////////// REPRENDRE ICI  /////////
-//         const heroVideo = data.results
-
-//         // Selectionne l'élément ou afficher les video (HeroBanner)
-//         const heroBanner = document.querySelector('.hero') as HTMLElement
+// // Ajouter l'élément video 
+// const video = document.createElement('video')
 
 
+// // Utiliser la source vidéo depuis tmdb
+// video.src =
+//   'https://api.themoviedb.org/3/movie/550/videos?api_key=b5f0a52f1e2ddb2e4bef41ea5c9f2146&language=fr-FR'
+
+// video.controls = false
+// video.muted = false
+// video.height = 240 
+// video.width = 320
+
+// const box: HTMLElement | null = document.getElementById('.hero')
+
+// // Ajouter l'élément html a la div
+// box.appendChild(video);
+async function getMovieVideo() {
+    try {
+        const response = await fetch(baseUrl + '/movie/502356/videos?' + apiKey + 'language=fr-FR')
+        const data = await response.json()
+        console.log(data)
         
-//     }
-// }
+        const popularMoviesVideo = data.results
+        const heroBanner: Element | null = document.querySelector('.hero') as HTMLElement
+        popularMoviesVideo.forEach(results => {
+            const videoUrl = 'https://www.youtube.com/watch?v=' + results.key
+            const video = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${results.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+            heroBanner.innerHTML = video
 
+
+        });
+
+
+
+    } catch (error) {
+    console.log(error)
+
+}
+}   
+getMovieVideo()
 //////////////////// POPULAR MOVIE /////////////////////////////////////////////
 
 async function getMoviePopular() {

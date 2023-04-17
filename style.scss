@@ -4,12 +4,29 @@ body {
     padding: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.418);
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 0, 0.589);
+    border-radius: 10px;
+}
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    background-color: rgb(56, 56, 56);
+    background-color: rgba(56, 56, 56, 0.425);
     margin-bottom: 1rem;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -17,26 +34,32 @@ body {
     & h1 {
         color: rgb(233, 9, 26);
         margin: 20px;
+        margin-left: 20%;
     }
 
     & input {
         height: 20px;
         margin: 20px;
+        height: 2rem;
+        width: 20rem;
+        background-color: rgb(248, 248, 248);
         border-style: none;
         border-radius: 40px;
+        margin-right: 20%;
+
     }
 }
 
 footer {
     bottom: 0;
-    
+
 }
 
 .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: grey;
+    background-color: rgba(128, 128, 128, 0.178);
     border-radius: 20px;
     // padding: rem;
 
@@ -61,11 +84,11 @@ h2 {
     //     padding: 3rem;
     //     background-color: beige;
     //     border-radius: 20px;
-        
+
     //     & :hover {
     //         animation: grow ease-in-out infinite;
     //     }
-        
+
     // }
 }
 
@@ -83,7 +106,7 @@ h2 {
     //     padding: 3rem;
     //     background-color: beige;
     //     border-radius: 20px;
-        
-        
+
+
     // }
 }
