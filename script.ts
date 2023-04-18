@@ -9,20 +9,53 @@ const apiKey: string = 'api_key=' + key + '&language=fr-FR'
 
 ///////////////////////////////// SEARCH BAR ////////////////////////////////////////////////
 
+async function userSearch() {
+    try {
+        const searchUrl = baseUrl + '/search/movie?'
+        // Select l'élément input 
+        const searchBar: Element | null = document.querySelector('.searchBar') as HTMLElement
+        const searchButton: Element | null = document.querySelector('.btnSearch')
+        const searchList: Element | null = document.querySelector('.searchList') as HTMLElement
+        // Ajoute un eventlistener a l'input 
+        searchBar.addEventListener('keypress', async (event) => {
+            // Si entrer et press par le user     
+            if (event.key === 'Enter') {
+                const searchTerm = event.target.value
+                const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=1&include_adult=false'
+                const response = await fetch(url)
+                const data = await response.json()
+                console.log(data.results)
+                // Récupere le resultat de la recherche        
+                const searchResult = data.results
+                // Affiche les 20 résultat dans une page "popup"
+                searchResult.forEach(movie => {
+                    // Créer l'image des films 
+                    const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
+                    // Créer la liste de films 
+                    const listItem = document.createElement('li')
+                    const image = document.createElement('img')
+                    image.src = imageUrl
+                    // const title = document.createElement('h2')
+                    // title.textContent = movie.title
+                    // Ajouter les images a la liste
+                    listItem.appendChild(image)
+                    // Ajoute l'élément html a la liste 
+                    searchList.appendChild(listItem)
 
-const searchUrl = baseUrl + '/search/movie'
+                })
 
-const searchBar: Element | null = document.querySelector('.searchBar')
 
-searchBar.addEventListener('keypress', async (event) => {
-  if (window.key === 'Enter') {
-    const searchTerm = event.target.value
-    const url = searchUrl + '?api_key=' + apiKey + '&query=' + searchTerm
-    const response = await fetch(url)
-    const data = await response.json()
-    console.log(data.results)
-  }
-});
+
+            }
+        })
+
+    } catch (error) {
+        console.log(error)
+
+    }
+
+}
+userSearch()
 
 ///////////////////////// HERO VIDEOS ///////////////////////////////////////////////////
 
@@ -30,8 +63,8 @@ async function getMovieVideo() {
     try {
         const response = await fetch(baseUrl + '/movie/502356/videos?' + apiKey + 'language=fr-FR')
         const data = await response.json()
-        console.log(data)
-        
+        // console.log(data)
+
         const popularMoviesVideo = data.results
         const heroBanner: Element | null = document.querySelector('.hero') as HTMLElement
         popularMoviesVideo.forEach(results => {
@@ -42,10 +75,10 @@ async function getMovieVideo() {
         });
 
     } catch (error) {
-    console.log(error)
+        console.log(error)
 
+    }
 }
-}   
 getMovieVideo()
 //////////////////// POPULAR MOVIE /////////////////////////////////////////////
 
@@ -61,7 +94,7 @@ async function getMoviePopular() {
         // Accéder à la liste des films populaires dans la réponse JSON
         popularMovies.forEach(movie => {
             // Construire l'URL complet de l'image du film
-            const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path;
+            const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
 
             // Créer un élément <li> contenant l'image et le titre du film
             const listItem = document.createElement('li')
@@ -75,7 +108,7 @@ async function getMoviePopular() {
             // listItem.appendChild(title);
 
             // Ajouter l'élément <li> à la liste HTML
-            movieList.appendChild(listItem);
+            movieList.appendChild(listItem)
 
         })
 
@@ -112,7 +145,7 @@ async function getMovieDocu() {
             const img = document.createElement('img')
             const listItem = document.createElement('li')
             img.src = imageUrl
-             // Ajouter l'élément <li> à la liste HTML
+            // Ajouter l'élément <li> à la liste HTML
             listItem.appendChild(img)
             docuList.appendChild(listItem)
         })
