@@ -14,38 +14,57 @@ async function userSearch() {
         const searchUrl = baseUrl + '/search/movie?'
         // Select l'élément input 
         const searchBar: Element | null = document.querySelector('.searchBar') as HTMLElement
-        const searchButton: Element | null = document.querySelector('.btnSearch')
         const searchList: Element | null = document.querySelector('.searchList') as HTMLElement
+        const sectionPopular: Element | null = document.querySelector('.popular')
+        const sectionDocu: Element | null = document.querySelector('.Docu')
+        const sectionhero: Element | null = document.querySelector('.hero')
         // Ajoute un eventlistener a l'input 
-        searchBar.addEventListener('keypress', async (event) => {
+        searchBar.addEventListener('keypress', async (event:Event) => {
             // Si entrer et press par le user     
             if (event.key === 'Enter') {
                 const searchTerm = event.target.value
                 const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=1&include_adult=false'
                 const response = await fetch(url)
                 const data = await response.json()
-                console.log(data.results)
+                // console.log(data.results)
+
                 // Récupere le resultat de la recherche        
                 const searchResult = data.results
+                // console.log(searchResult);
+                
+
+                searchList.innerHTML = ''; // Effacer les résultats précédents
+
                 // Affiche les 20 résultat dans une page "popup"
                 searchResult.forEach(movie => {
+                    
                     // Créer l'image des films 
                     const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
+                    const movieId = movie.id
+                    // console.log(movieId);
+
+                    // Cache les section non utiles
+                    sectionPopular?.classList.add('hidden')
+                    sectionDocu?.classList.add('hidden')
+                    sectionhero?.classList.add('hidden')
+                    
+
+                    if (movie.poster_path !== null) {
                     // Créer la liste de films 
                     const listItem = document.createElement('li')
                     const image = document.createElement('img')
                     image.src = imageUrl
+                    image.setAttribute('movieId', `${movieId}`)
                     // const title = document.createElement('h2')
                     // title.textContent = movie.title
+                    
                     // Ajouter les images a la liste
                     listItem.appendChild(image)
-                    // Ajoute l'élément html a la liste 
+                    // Ajoute la liste a la div
                     searchList.appendChild(listItem)
+                    }
 
                 })
-
-
-
             }
         })
 
@@ -56,6 +75,22 @@ async function userSearch() {
 
 }
 userSearch()
+
+
+// Récupère l'élement button Search
+const searchButton: Element | null = document.querySelector('.btnSearch') as HTMLElement
+// Ecoute le user clique sur l'element et execute la fonction userSearch 
+searchButton.addEventListener('click', async (event:Event) => {
+     userSearch()
+})
+
+// Récupère les images
+const selectImage : Element | null = document.querySelector('img') as HTMLElement
+
+// Ecoute les user click sur les img
+selectImage.addEventListener('click',async (event:Event) => {
+    
+})
 
 ///////////////////////// HERO VIDEOS ///////////////////////////////////////////////////
 
@@ -79,7 +114,7 @@ async function getMovieVideo() {
 
     }
 }
-getMovieVideo()
+// getMovieVideo()
 //////////////////// POPULAR MOVIE /////////////////////////////////////////////
 
 async function getMoviePopular() {
