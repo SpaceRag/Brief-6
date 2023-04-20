@@ -32,8 +32,8 @@ html {
 ::-webkit-scrollbar-thumb {
     background: rgba(136, 135, 135, 0.61);
     border-radius: 10px;
-    
-   
+
+
 }
 
 img {
@@ -61,6 +61,7 @@ img {
         color: rgb(233, 9, 26);
         margin: 20px;
         margin-left: 20%;
+
         &:hover {
             transform: scale(1.05);
             cursor: pointer;
@@ -101,18 +102,27 @@ img {
     }
 }
 
-.detailsFilm{
+.detailsFilm {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    align-content: center;
     margin: 2rem;
     background-color: rgb(128, 128, 128);
     border-radius: 20px;
 
-    &h1 {
-        color: white;
+    & h1 {
+        color: rgb(146, 29, 29);
         font-size: 2rem;
+    }
+
+    & h3 {
+        color: rgb(177, 177, 42);
+    }
+
+    &img {
+        margin: 5rem;
+        max-width: 100%;
+        height: auto;
     }
 
     & p {
@@ -155,7 +165,7 @@ footer {
 }
 
 .results {
-    display:flex;
+    display: flex;
     color: white;
 }
 

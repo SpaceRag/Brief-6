@@ -31,7 +31,7 @@ async function userSearch() {
         searchBar.addEventListener('keypress', async (event: Event) => {
             // Si entrer et press par le user     
             if (event.key === 'Enter') {
-                const searchTerm = event.target.value
+                const searchTerm = event.target.value 
                 const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=1&include_adult=false'
                 const response = await fetch(url)
                 const data = await response.json()
@@ -88,7 +88,8 @@ async function userSearch() {
                             detailsDiv.innerHTML = `
                                 <h2>${detailsData.title}</h2>
                                 <h3>Release Date :${detailsData.release_date}</h3>
-                                <img src="https://image.tmdb.org/t/p/w300/${detailsData.poster_path}">
+                                <p>${detailsData.popularity}</p>
+                                <img src="https://image.tmdb.org/t/p/w342/${detailsData.poster_path}">
                                 <p>${detailsData.overview}</p>
                             `
 
