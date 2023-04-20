@@ -12,7 +12,7 @@ html {
     display: flex;
 }
 
-.hidden { 
+.hidden {
     display: none;
 }
 
@@ -24,14 +24,27 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.418);
-    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(252, 4, 4, 0.418);
+    border-radius: 20px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 0, 0, 0.589);
+    background: rgba(136, 135, 135, 0.61);
     border-radius: 10px;
+    
+   
+}
+
+img {
+    border-radius: 10px;
+    transition: transform 0.1s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+
+    }
 }
 
 .header {
@@ -48,6 +61,10 @@ html {
         color: rgb(233, 9, 26);
         margin: 20px;
         margin-left: 20%;
+        &:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
     }
 
     & input {
@@ -57,7 +74,8 @@ html {
         border-style: none;
         border-radius: 40px;
         margin-right: 2rem;
-        transition : transform 0.1s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+
         &:hover {
             transform: scale(1.1)
         }
@@ -72,12 +90,34 @@ html {
         color: white;
         border-radius: 20px;
         margin-right: 5rem;
-        transition : transform 0.1s ease-in-out;
+        transition: transform 0.1s ease-in-out;
+
         &:hover {
-            transform: scale(1.1)
+            transform: scale(1.05);
+            cursor: pointer;
         }
 
 
+    }
+}
+
+.detailsFilm{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    margin: 2rem;
+    background-color: rgb(128, 128, 128);
+    border-radius: 20px;
+
+    &h1 {
+        color: white;
+        font-size: 2rem;
+    }
+
+    & p {
+        color: rgb(34, 34, 34);
+        font-size: large;
     }
 }
 
@@ -87,23 +127,17 @@ html {
     justify-content: center;
     margin: 2rem;
 
-    & img {
-        border-radius: 10px;
-        transition : transform 0.2s ease-in-out;
-        &:hover {
-            transform: scale(1.1)
-        }
-    }
-    
 }
 
 footer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     bottom: 0;
-    font-size: 0.5rem;
-    margin: 20px;
-
+    margin: 30px;
+    margin-top: 100px;
+    padding: 5rem;
 }
 
 .hero {
@@ -117,6 +151,12 @@ footer {
     background-color: rgba(255, 255, 255, 0.089);
     background-image: url(./assets/img/netflix-octobre-contenus-2022.jpg);
     border-radius: 20px;
+
+}
+
+.results {
+    display:flex;
+    color: white;
 }
 
 h2 {
@@ -131,16 +171,8 @@ h2 {
     padding: 1rem;
     margin: 1rem;
     list-style: none;
+}
 
-    & img {
-        border-radius: 10px;
-        transition : transform 0.2s ease-in-out;
-        &:hover {
-            transform: scale(1.1)
-        }
-    }
-}     
-      
 
 .docuCarouselCard {
     display: flex;
@@ -149,13 +181,4 @@ h2 {
     padding: 1rem;
     margin: 1rem;
     list-style: none;
-
-    & img {
-        border-radius: 10px;
-        transition : transform 0.2s ease-in-out;
-        &:hover {
-            transform: scale(1.1)
-        }
-    }
-
 }

@@ -7,6 +7,11 @@ const apiKey: string = 'api_key=' + key + '&language=fr-FR'
 
 ////////////////////////////// PAGE ACCEUIL - CATEGOMOVIES ////////////////////////////////////
 
+const logoRefresh: Element | null = document.querySelector('h1')
+logoRefresh?.addEventListener('click',(event: Event) => {
+    location.reload()
+})
+
 ///////////////////////////////// SEARCH BAR ////////////////////////////////////////////////
 
 async function userSearch() {
@@ -17,9 +22,13 @@ async function userSearch() {
         const searchList: Element | null = document.querySelector('.searchList') as HTMLElement
         const sectionPopular: Element | null = document.querySelector('.popular')
         const sectionDocu: Element | null = document.querySelector('.Docu')
-        const sectionhero: Element | null = document.querySelector('.hero')
+        const sectionHome: Element | null = document.querySelector('.Home')
+        
+
+
+
         // Ajoute un eventlistener a l'input 
-        searchBar.addEventListener('keypress', async (event:Event) => {
+        searchBar.addEventListener('keypress', async (event: Event) => {
             // Si entrer et press par le user     
             if (event.key === 'Enter') {
                 const searchTerm = event.target.value
@@ -28,40 +37,68 @@ async function userSearch() {
                 const data = await response.json()
                 // console.log(data.results)
 
+
                 // Récupere le resultat de la recherche        
                 const searchResult = data.results
                 // console.log(searchResult);
-                
+
 
                 searchList.innerHTML = ''; // Effacer les résultats précédents
 
-                // Affiche les 20 résultat dans une page "popup"
+                // Affiche les 20 résultat dans la section home
                 searchResult.forEach(movie => {
-                    
-                    // Créer l'image des films 
+
+                    // Crée l'image des films 
                     const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
+                    // Récupère l'Id du film
                     const movieId = movie.id
                     // console.log(movieId);
 
                     // Cache les section non utiles
+                    sectionHome?.classList.add('hidden')
                     sectionPopular?.classList.add('hidden')
                     sectionDocu?.classList.add('hidden')
-                    sectionhero?.classList.add('hidden')
+                   
                     
 
+
                     if (movie.poster_path !== null) {
-                    // Créer la liste de films 
-                    const listItem = document.createElement('li')
-                    const image = document.createElement('img')
-                    image.src = imageUrl
-                    image.setAttribute('movieId', `${movieId}`)
-                    // const title = document.createElement('h2')
-                    // title.textContent = movie.title
-                    
-                    // Ajouter les images a la liste
-                    listItem.appendChild(image)
-                    // Ajoute la liste a la div
-                    searchList.appendChild(listItem)
+                        // Crée la liste de films 
+                        const title = document.createElement('h2')
+                        const listItem = document.createElement('li')
+                        const image = document.createElement('img')
+                        image.classList.add('imageFilm')
+                        image.src = imageUrl
+                        image.setAttribute('movieId', `${movieId}`)
+
+                        // Ajoute les images a la liste
+                        listItem.appendChild(image)
+                        // Ajoute la liste a la div
+                        searchList.appendChild(listItem)
+
+                        // Ajoute un event listener sur chaque image pour afficher les détails du film
+                        image.addEventListener('click', async () => {
+                            const detailsUrl = baseUrl + '/movie/' + movieId + '?' + apiKey
+                            const detailsResponse = await fetch(detailsUrl)
+                            const detailsData = await detailsResponse.json()
+
+                            // Crée un élément div pour les détails du film
+                            const detailsDiv = document.createElement('div')
+                            detailsDiv.classList.add('detailsFilm')
+                            detailsDiv.innerHTML = `
+                                <h2>${detailsData.title}</h2>
+                                <h3>Release Date :${detailsData.release_date}</h3>
+                                <img src="https://image.tmdb.org/t/p/w300/${detailsData.poster_path}">
+                                <p>${detailsData.overview}</p>
+                            `
+
+                            // Ajoute les détails à la section de détails
+                            const detailsSection: Element | null = document.querySelector('.detailsFilm') as HTMLElement
+                            detailsSection?.appendChild(detailsDiv)
+                        })
+
+                           
+
                     }
 
                 })
@@ -77,20 +114,28 @@ async function userSearch() {
 userSearch()
 
 
+///////////////////// DETAIL FILM /////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // Récupère l'élement button Search
 const searchButton: Element | null = document.querySelector('.btnSearch') as HTMLElement
 // Ecoute le user clique sur l'element et execute la fonction userSearch 
-searchButton.addEventListener('click', async (event:Event) => {
-     userSearch()
+searchButton.addEventListener('click', async (event: Event) => {
+    userSearch()
 })
 
 // Récupère les images
-const selectImage : Element | null = document.querySelector('img') as HTMLElement
+const selectImage: Element | null = document.querySelector('img') as HTMLElement
 
 // Ecoute les user click sur les img
-selectImage.addEventListener('click',async (event:Event) => {
-    
+selectImage.addEventListener('click', async (event: Event) => {
+
 })
+
 
 ///////////////////////// HERO VIDEOS ///////////////////////////////////////////////////
 
@@ -152,7 +197,7 @@ async function getMoviePopular() {
 
     }
 }
-getMoviePopular()
+// getMoviePopular()
 
 ////////////////////////////////////// DOCUMENTARY MOVIE ////////////////////////////////////
 
@@ -191,5 +236,48 @@ async function getMovieDocu() {
     }
 
 }
-getMovieDocu()
+// getMovieDocu()
 
+////////////////////////////////////// Fonction génerique pour Récuperer une liste de films /////////////////////////////////////////////////////
+
+async function getMoviesFromApi(apiUrl: string, elementSelector: string) {
+    try {
+        const response = await fetch(apiUrl)
+        const data = await response.json()
+
+        const movies = data.results
+
+        // Sélectionne l'élément de la page où afficher les images des films
+        const movieList: Element | null = document.querySelector(elementSelector) as HTMLElement
+
+        // Accéde à la liste des films dans la réponse JSON
+        movies.forEach(movie => {
+            // Construi l'URL complet de l'image du film
+            const imageUrl = 'https://image.tmdb.org/t/p/w154' + movie.poster_path
+
+            if (movie.poster_path !== null) {
+                // Crée un élément <li> contenant l'image et le titre du film
+                const listItem = document.createElement('li')
+                const image = document.createElement('img')
+                image.src = imageUrl
+
+                // Ajoute les image a la liste
+                listItem.appendChild(image)
+
+                // Ajoute l'élément <li> à la liste HTML
+                movieList.appendChild(listItem)
+            }
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//////////////////////////////////////// POPULAR MOVIE //////////////////////////////////////
+
+getMoviesFromApi(baseUrl + '/search/movie?' + apiKey + '&query=documentary', '.docuCarouselCard');
+
+////////////////////////////////////// DOCUMENTARY MOVIE ////////////////////////////////////
+
+getMoviesFromApi(baseUrl + '/movie/popular?' + apiKey, '.popularCarouselCard')
