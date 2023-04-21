@@ -84,6 +84,9 @@ img {
     }
 
     & .btnSearch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 2rem;
         width: 5rem;
         background-color: rgb(247, 45, 45);
@@ -102,32 +105,75 @@ img {
     }
 }
 
+
+
 .detailsFilm {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     justify-content: center;
     margin: 2rem;
-    background-color: rgb(128, 128, 128);
+    background-color: rgb(53, 50, 50);
     border-radius: 20px;
 
-    & h1 {
-        color: rgb(146, 29, 29);
+    & h2 {
+        color: rgb(255, 255, 255);
         font-size: 2rem;
+        padding: 2rem;
+        background-color: rgb(36, 36, 36);
+        border-radius: 10px;
     }
 
+    button {
+        height: 2rem;
+        width: 5rem;
+        background-color: rgb(247, 45, 45);
+        border-style: none;
+        color: white;
+        border-radius: 20px;
+        transition: transform 0.1s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+    }
+
+
     & h3 {
-        color: rgb(177, 177, 42);
+        color: rgb(255, 255, 134);
     }
 
     &img {
         margin: 5rem;
-        max-width: 100%;
+        max-width: 50%;
         height: auto;
+    }
+
+    & div {
+        display: flex;
+        align-items: center;
+        gap: 3em;
+    }
+
+    & h4 {
+        font-weight: bolder;
+        font-size: 2rem;
+        color: white;
     }
 
     & p {
         color: rgb(34, 34, 34);
         font-size: large;
+        background-color: yellow;
+        padding: 2rem;
+        border-radius: 50px;
+        
+    }
+
+    .red {
+        color: rgb(0, 0, 0);
+
     }
 }
 
@@ -137,6 +183,28 @@ img {
     justify-content: center;
     margin: 2rem;
 
+}
+
+.btnDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    button {
+        height: 2rem;
+        width: 5rem;
+        background-color: rgb(247, 45, 45);
+        border-style: none;
+        color: white;
+        border-radius: 20px;
+        transition: transform 0.1s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+    }
 }
 
 footer {

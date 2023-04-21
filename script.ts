@@ -3,12 +3,12 @@ import key from "./key"
 
 const baseUrl: string = "https://api.themoviedb.org/3"
 const apiKey: string = 'api_key=' + key + '&language=fr-FR'
-
+var page: number = 1
 
 ////////////////////////////// PAGE ACCEUIL - CATEGOMOVIES ////////////////////////////////////
 
 const logoRefresh: Element | null = document.querySelector('h1')
-logoRefresh?.addEventListener('click',(event: Event) => {
+logoRefresh?.addEventListener('click', (event: Event) => {
     location.reload()
 })
 
@@ -23,7 +23,7 @@ async function userSearch() {
         const sectionPopular: Element | null = document.querySelector('.popular')
         const sectionDocu: Element | null = document.querySelector('.Docu')
         const sectionHome: Element | null = document.querySelector('.Home')
-        
+
 
 
 
@@ -31,8 +31,8 @@ async function userSearch() {
         searchBar.addEventListener('keypress', async (event: Event) => {
             // Si entrer et press par le user     
             if (event.key === 'Enter') {
-                const searchTerm = event.target.value 
-                const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=1&include_adult=false'
+                const searchTerm = event.target.value
+                const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=' + page + '&include_adult=false'
                 const response = await fetch(url)
                 const data = await response.json()
                 // console.log(data.results)
@@ -43,8 +43,49 @@ async function userSearch() {
                 // console.log(searchResult);
 
 
-                searchList.innerHTML = ''; // Effacer les résultats précédents
+                searchList.innerHTML = ''; // Efface les résultats précédents
+                const btnDiv: Element | null = document.querySelector('.btnDiv') as HTMLElement
+                const nextbtn = document.createElement('button')
+                const prevbtn = document.createElement('button')
+                
 
+                // Crée les button 
+                btnDiv.appendChild(prevbtn)
+                btnDiv.appendChild(nextbtn)
+                
+                // Ajoute le text dans les btn
+                prevbtn.innerHTML = 'Previous'
+                nextbtn.innerHTML = 'Next'
+
+                // Ecoute le user click et incrémente les pages 
+                nextbtn.addEventListener('click', async () => {
+                    if (page < data.total_pages) {
+                        page++;
+                        const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=' + page + '&include_adult=false';
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        const searchResult = data.results;
+                        searchList.innerHTML = '';
+                        // afficher les nouveaux résultats de la recherche sur la page
+                    }
+                })
+
+
+                // Décrémente
+                prevbtn.addEventListener('click', async () => {
+                    if (page < data.total_pages) {
+                        page--;
+                        const url = searchUrl + apiKey + '&query=' + searchTerm + '&page=' + page + '&include_adult=false';
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        const searchResult = data.results;
+                        searchList.innerHTML = '';
+                        
+                    }
+                })
+
+
+               
                 // Affiche les 20 résultat dans la section home
                 searchResult.forEach(movie => {
 
@@ -58,8 +99,6 @@ async function userSearch() {
                     sectionHome?.classList.add('hidden')
                     sectionPopular?.classList.add('hidden')
                     sectionDocu?.classList.add('hidden')
-                   
-                    
 
 
                     if (movie.poster_path !== null) {
@@ -67,14 +106,18 @@ async function userSearch() {
                         const title = document.createElement('h2')
                         const listItem = document.createElement('li')
                         const image = document.createElement('img')
+
                         image.classList.add('imageFilm')
                         image.src = imageUrl
                         image.setAttribute('movieId', `${movieId}`)
 
                         // Ajoute les images a la liste
                         listItem.appendChild(image)
+
                         // Ajoute la liste a la div
                         searchList.appendChild(listItem)
+
+                        ///////////////////// DETAIL FILM /////////////////////////////////////////////////////////////////
 
                         // Ajoute un event listener sur chaque image pour afficher les détails du film
                         image.addEventListener('click', async () => {
@@ -86,11 +129,16 @@ async function userSearch() {
                             const detailsDiv = document.createElement('div')
                             detailsDiv.classList.add('detailsFilm')
                             detailsDiv.innerHTML = `
-                                <h2>${detailsData.title}</h2>
+
+                            <button onclick="location.reload()" class="btnSearch">Close</button>    
+                            <h2>${detailsData.title}</h2>
                                 <h3>Release Date :${detailsData.release_date}</h3>
-                                <p>${detailsData.popularity}</p>
+                                <div>
+                                <p>${Math.round(detailsData.vote_average)} /10</p>
+                                <h4>Vote count : ${detailsData.vote_count}</h4>
+                                </div>
                                 <img src="https://image.tmdb.org/t/p/w342/${detailsData.poster_path}">
-                                <p>${detailsData.overview}</p>
+                                <h4>${detailsData.overview}</h4>
                             `
 
                             // Ajoute les détails à la section de détails
@@ -98,7 +146,7 @@ async function userSearch() {
                             detailsSection?.appendChild(detailsDiv)
                         })
 
-                           
+
 
                     }
 
@@ -115,7 +163,7 @@ async function userSearch() {
 userSearch()
 
 
-///////////////////// DETAIL FILM /////////////////////////////////////////////////////////////////
+
 
 
 
@@ -153,6 +201,7 @@ async function getMovieVideo() {
             const video = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${results.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
             heroBanner.innerHTML = video
 
+
         });
 
     } catch (error) {
@@ -160,7 +209,7 @@ async function getMovieVideo() {
 
     }
 }
-// getMovieVideo()
+getMovieVideo()
 //////////////////// POPULAR MOVIE /////////////////////////////////////////////
 
 async function getMoviePopular() {
