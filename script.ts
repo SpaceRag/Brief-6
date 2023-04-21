@@ -4,7 +4,7 @@ import key from "./key"
 const baseUrl: string = "https://api.themoviedb.org/3"
 const apiKey: string = 'api_key=' + key + '&language=fr-FR'
 var page: number = 1
-
+const searchBar = document.querySelector('.searchBar')
 ////////////////////////////// PAGE ACCEUIL - CATEGOMOVIES ////////////////////////////////////
 
 const logoRefresh: Element | null = document.querySelector('h1')
@@ -13,6 +13,14 @@ logoRefresh?.addEventListener('click', (event: Event) => {
 })
 
 ///////////////////////////////// SEARCH BAR ////////////////////////////////////////////////
+
+
+// Récupère l'élement button Search
+const searchButton: Element | null = document.querySelector('.btnSearch') as HTMLElement
+// Ecoute le user clique sur l'element et execute la fonction userSearch 
+searchButton.addEventListener('click', () => {
+    userSearch()
+})
 
 async function userSearch() {
     try {
@@ -36,6 +44,7 @@ async function userSearch() {
                 const response = await fetch(url)
                 const data = await response.json()
                 // console.log(data.results)
+
 
 
                 // Récupere le resultat de la recherche        
@@ -164,26 +173,19 @@ userSearch()
 
 
 
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// Récupère l'élement button Search
-const searchButton: Element | null = document.querySelector('.btnSearch') as HTMLElement
-// Ecoute le user clique sur l'element et execute la fonction userSearch 
-searchButton.addEventListener('click', async (event: Event) => {
-    userSearch()
-})
+// // Récupère l'élement button Search
+// const searchButton: Element | null = document.querySelector('.btnSearch') as HTMLElement
+// // Ecoute le user clique sur l'element et execute la fonction userSearch 
+// searchButton.addEventListener('click', async (event: Event) => {
+//     userSearch()
+// })
 
-// Récupère les images
-const selectImage: Element | null = document.querySelector('img') as HTMLElement
 
-// Ecoute les user click sur les img
-selectImage.addEventListener('click', async (event: Event) => {
 
-})
+
 
 
 ///////////////////////// HERO VIDEOS ///////////////////////////////////////////////////
