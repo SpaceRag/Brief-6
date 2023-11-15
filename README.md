@@ -7,8 +7,7 @@ cp key.example.ts key.ts # Ajoutez votre votre clé TMDB
 ```
 --- 
 ## Screenshot
-![Screenshot from 2023-11-14 15-06-54](https://github.com/SpaceRag/FlixUniverseB6/assets/123640951/d65dd29b-45cc-4fb7-bed3-f02e1f6fd52a)
-
+![Screenshot from 2023-11-14 16-09-05](https://github.com/SpaceRag/FlixUniverseB6/assets/123640951/0e3cfc5c-cead-4773-9fc7-720a1e2de631)
 
 
 ## Contexte du projet
